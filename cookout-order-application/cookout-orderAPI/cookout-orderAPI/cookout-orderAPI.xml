@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>cookout-orderAPI</name>
+    </assembly>
+    <members>
+        <member name="M:cookout_orderAPI.Controllers.LoginController.#ctor(cookout_orderAPI.Providers.Security.ITokenGenerator,cookout_orderAPI.Providers.Security.IPasswordHasher,cookout_orderAPI.DAL.IUserDAO)">
+            <summary>
+            Creates a new account controller.
+            </summary>
+            <param name="tokenGenerator">A token generator used when creating auth tokens.</param>
+            <param name="passwordHasher">A password hasher used when hashing passwords.</param>
+            <param name="userDao">A data access object to store user data.</param>
+        </member>
+        <member name="M:cookout_orderAPI.Controllers.LoginController.Register(cookout_orderAPI.Models.Account.AuthenticationModel)">
+            <summary>
+            Registers a user and provides a bearer token.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:cookout_orderAPI.Controllers.LoginController.Login(cookout_orderAPI.Models.Account.AuthenticationModel)">
+            <summary>
+            Authenticates the user and provides a bearer token.
+            </summary>
+            <param name="model">An object including the user's credentials.</param> 
+            <returns></returns>
+        </member>
+        <member name="T:cookout_orderAPI.DAL.IUserDAO">
+            <summary>
+            An interface for user data objects.
+            </summary>
+        </member>
+        <member name="M:cookout_orderAPI.DAL.IUserDAO.GetUser(System.Int32)">
+            <summary>
+            Retrieves a user from the system by username.
+            </summary>
+            <param name="username"></param>
+            <returns></returns>
+        </member>
+        <member name="M:cookout_orderAPI.DAL.IUserDAO.CreateUser(cookout_orderAPI.Models.User)">
+            <summary>
+            Creates a new user.
+            </summary>
+            <param name="user"></param>
+        </member>
+        <member name="M:cookout_orderAPI.DAL.IUserDAO.UpdateUser(cookout_orderAPI.Models.User)">
+            <summary>
+            Updates a user.
+            </summary>
+            <param name="user"></param>
+        </member>
+        <member name="M:cookout_orderAPI.DAL.IUserDAO.DeleteUser(cookout_orderAPI.Models.User)">
+            <summary>
+            Deletes a user from the system.
+            </summary>
+            <param name="user"></param>
+        </member>
+        <member name="T:cookout_orderAPI.DAL.UserSqlDAO">
+            <summary>
+            A SQL Dao for user objects.
+            </summary>
+        </member>
+        <member name="M:cookout_orderAPI.DAL.UserSqlDAO.#ctor(System.String)">
+            <summary>
+            Creates a new sql dao for user objects.
+            </summary>
+            <param name="connectionString">the database connection string</param>
+        </member>
+        <member name="M:cookout_orderAPI.DAL.UserSqlDAO.CreateUser(cookout_orderAPI.Models.User)">
+            <summary>
+            Saves the user to the database.
+            </summary>
+            <param name="user"></param>
+        </member>
+        <member name="M:cookout_orderAPI.DAL.UserSqlDAO.DeleteUser(cookout_orderAPI.Models.User)">
+            <summary>
+            Deletes the user from the database.
+            </summary>
+            <param name="user"></param>
+        </member>
+        <member name="M:cookout_orderAPI.DAL.UserSqlDAO.GetUser(System.Int32)">
+            <summary>
+            Gets the user from the database.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:cookout_orderAPI.DAL.UserSqlDAO.UpdateUser(cookout_orderAPI.Models.User)">
+            <summary>
+            Updates the user in the database.
+            </summary>
+            <param name="user"></param>
+        </member>
+        <member name="T:cookout_orderAPI.Models.Account.AuthenticationModel">
+            <summary>
+            Represents an authentication model request.
+            </summary>
+        </member>
+        <member name="P:cookout_orderAPI.Models.Account.AuthenticationModel.Username">
+            <summary>
+            The user's username.
+            </summary>
+        </member>
+        <member name="P:cookout_orderAPI.Models.Account.AuthenticationModel.Password">
+            <summary>
+            The user's password.
+            </summary>
+        </member>
+        <member name="P:cookout_orderAPI.Models.Account.AuthenticationModel.Email">
+            <summary>
+            The user's email
+            </summary>
+        </member>
+        <member name="T:cookout_orderAPI.Models.User">
+            <summary>
+            Represents a user in the system.
+            </summary>
+        </member>
+        <member name="P:cookout_orderAPI.Models.User.Id">
+            <summary>
+            The user's id.
+            </summary>        
+        </member>
+        <member name="P:cookout_orderAPI.Models.User.Username">
+            <summary>
+            The user's username.
+            </summary>        
+        </member>
+        <member name="P:cookout_orderAPI.Models.User.Password">
+            <summary>
+            The user's password.
+            </summary>
+        </member>
+        <member name="P:cookout_orderAPI.Models.User.Email">
+            <summary>
+            The user's email.
+            </summary>
+        </member>
+        <member name="P:cookout_orderAPI.Models.User.Salt">
+            <summary>
+            The user's salt.
+            </summary>
+        </member>
+        <member name="P:cookout_orderAPI.Models.User.Role">
+            <summary>
+            The user's role.
+            </summary>
+        </member>
+        <member name="T:cookout_orderAPI.Providers.Security.IPasswordHasher">
+            <summary>
+            Represents a password hasher.
+            </summary>
+        </member>
+        <member name="M:cookout_orderAPI.Providers.Security.IPasswordHasher.ComputeHash(System.String)">
+            <summary>
+            Given a clear text password, hash the password and return a Password Hash object.
+            </summary>
+            <param name="plainTextPassword">the password as given by the user.</param>
+            <returns>A hashed password object.</returns>
+        </member>
+        <member name="M:cookout_orderAPI.Providers.Security.IPasswordHasher.VerifyHashMatch(System.String,System.String,System.String)">
+            <summary>
+            Verifies a match of an existing hashed password against a user input.
+            </summary>
+            <param name="existingHashedPassword">The existing hashed password.</param>
+            <param name="plainTextPassword">The password as typed in by the user</param>
+            <param name="salt">The salt used to compute the original hash.</param>
+            <returns></returns>
+        </member>
+        <member name="T:cookout_orderAPI.Providers.Security.ITokenGenerator">
+            <summary>
+            Represents an authentication token interface.
+            </summary>
+        </member>
+        <member name="M:cookout_orderAPI.Providers.Security.ITokenGenerator.GenerateToken(System.String,System.String)">
+            <summary>
+            Generates a new authentication token.
+            </summary>
+            <param name="username">The user's username</param>
+            <param name="role">The user's role</param>
+            <returns></returns>
+        </member>
+        <member name="T:cookout_orderAPI.Providers.Security.JwtGenerator">
+            <summary>
+            Represents a JWT generator.
+            </summary>
+        </member>
+        <member name="M:cookout_orderAPI.Providers.Security.JwtGenerator.#ctor(System.String)">
+            <summary>
+            Creates a new JWT generator.
+            </summary>
+            <param name="secret">The app's secret to use when signing the token.</param>
+        </member>
+        <member name="M:cookout_orderAPI.Providers.Security.JwtGenerator.GenerateToken(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="username"></param>
+            <param name="role"></param>
+            <returns></returns>
+        </member>
+        <member name="T:cookout_orderAPI.Providers.Security.PasswordHash">
+            <summary>
+            Represents a hashed password.
+            </summary>
+        </member>
+        <member name="M:cookout_orderAPI.Providers.Security.PasswordHash.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new hashed password.
+            </summary>
+            <param name="password">The hashed password</param>
+            <param name="salt">The salt used to get the hashed password.</param>
+        </member>
+        <member name="P:cookout_orderAPI.Providers.Security.PasswordHash.Password">
+            <summary>
+            The hashed password
+            </summary>
+        </member>
+        <member name="P:cookout_orderAPI.Providers.Security.PasswordHash.Salt">
+            <summary>
+            The salt used to get the hashed password.
+            </summary>
+        </member>
+        <member name="T:cookout_orderAPI.Providers.Security.PasswordHasher">
+            <summary>
+            The hash provider provides functionality to hash a plain text password and validate 
+            an existing password against its hash.
+            </summary>
+        </member>
+        <member name="M:cookout_orderAPI.Providers.Security.PasswordHasher.ComputeHash(System.String)">
+            <summary>
+            Hashes a plain text password.
+            </summary>
+            <param name="plainTextPassword"></param>
+            <returns></returns>
+        </member>
+        <member name="M:cookout_orderAPI.Providers.Security.PasswordHasher.VerifyHashMatch(System.String,System.String,System.String)">
+            <summary>
+            Verifies if an existing hashed password matches a plaintext password (+salt).
+            </summary>
+            <param name="existingHashedPassword">The password we are comparing to.</param>
+            <param name="plainTextPassword">The plaintext password being validated.</param>
+            <param name="salt">The salt used to get the existing hashed password.</param>
+            <returns></returns>
+        </member>
+        <member name="M:cookout_orderAPI.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            Includes middleware configuration for the HTTP Request Pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>
